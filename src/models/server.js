@@ -8,6 +8,10 @@ class Server {
     // Puerto del servidor
     this.port = process.env.PORT;
 
+    // Configuración de web socket
+    this.server = require('http').createServer(this.app);
+    this.io = require('socket.io')(this.server);
+
     // Path para las rutas
     this.path = {};
 
@@ -35,7 +39,7 @@ class Server {
 
   // Metodo que escucha el puerto
   listesPort() {
-    this.app.listen(this.port, () => {
+    this.server.listen(this.port, () => {
       console.log(`Corriendo en  http://localhost:${this.port}`);
     });
   }
