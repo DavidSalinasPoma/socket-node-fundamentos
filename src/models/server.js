@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 
+// Controllador de sockets
+const { socketController } = require('../sockets/controller');
+
 class Server {
   // Metodo constructor de la clase
   constructor() {
@@ -20,6 +23,9 @@ class Server {
 
     // Rutas de la app
     this.routes();
+
+    // Path para el manejo de eventos de sockets
+    this.sockets();
   }
 
   // Metodo middleware
@@ -37,8 +43,14 @@ class Server {
     // this.app.use(this.path.auth, require('../routes/auth.routes'));
   }
 
+  // Path para el manejo de eventos de sockets
+  sockets() {
+    // El this.io hace referencia a nuestro servidor de sockets
+    this.io.on('connection', socketController);
+  }
+
   // Metodo que escucha el puerto
-  listesPort() {
+  listenerPort() {
     this.server.listen(this.port, () => {
       console.log(`Corriendo en  http://localhost:${this.port}`);
     });

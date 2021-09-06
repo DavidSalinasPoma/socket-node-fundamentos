@@ -1,7 +1,8 @@
 // Paquetepara utilizar Variables de entorno
 require('dotenv').config();
 
-// Paaqutes porpios
-const { Server } = require('./models/server');
+// Paquetes porpios
+const { Server } = require('./models');
+
 const server = new Server();
-server.listesPort(); // Lanzar el servidor
+server.listenerPort(); // Lanzar el servidor
